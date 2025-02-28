@@ -29,9 +29,13 @@ class MainActivity : AppCompatActivity() {
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {}
             override fun onChildRemoved(snapshot: DataSnapshot) {}
 
-            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val usuario = snapshot.getValue( User::class.java )
-                if (usuario != null) writeMark(usuario)
+            override fun onChildAdded(dataSnapshot: DataSnapshot, p1: String?) {
+                val name = dataSnapshot.child("firstName").getValue(String::class.java)
+                val lastname = dataSnapshot.child("lastName").getValue(String::class.java)
+                val age = dataSnapshot.child("age").getValue(String::class.java)
+
+                val usuario = User(name, lastname, age)
+                writeMark(usuario)
             }
         })
 
